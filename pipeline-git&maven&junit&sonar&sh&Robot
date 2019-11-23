@@ -30,6 +30,7 @@ pipeline {
             agent { node { label 'master' } }
             steps {
                 dir(env.WORKSPACE){
+		   sh 'sshpass -p 1qaz@WSX ssh -o StrictHostKeychecking=no root@192.168.88.130 "mkdir -p /opt/ansible"'
                    sh 'sshpass -p 1qaz@WSX scp -o StrictHostKeychecking=no target/sample.jar root@192.168.88.130:/opt/ansible'   //把部署的jar传到目标机器上
                    sh 'sshpass -p 1qaz@WSX scp -o StrictHostKeychecking=no deploy.sh root@192.168.88.130:/opt/ansible'   //把脚本传到目标机器上
                    sh 'sshpass -p 1qaz@WSX ssh -o StrictHostKeychecking=no root@192.168.88.130 "bash /opt/ansible/deploy.sh"'      //在目标机器上执行对应的脚本
